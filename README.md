@@ -1,4 +1,4 @@
-# Data PDF QA Prototype
+# OutlineQuery PDF QA Prototype
 
 Prototype steps:
 1. Load course outline PDF (`data/waterloo_courses/STAT331_Outline.pdf`) with `PDFMinerLoader`.
@@ -72,12 +72,9 @@ Commit `requirements.txt`, never the `venv` directory.
 
 ## Planned Improvements
 
+- Make chunks more context-aware as they perform poorly when asked about assessment dates
 - Turn into a function that can take an course outline file as input
 - Deploy so it can be tested by others
-
-## Security
-
-Treat exposed API keys as revoked; rotate now. Never commit secrets. Use least‑privilege, project‑scoped keys.
 
 ## Disclaimer
 
