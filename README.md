@@ -1,81 +1,51 @@
-# OutlineQuery PDF QA Prototype
+# OutlineQuery: A Waterloo Course Outline Chatbot
 
-Prototype steps:
-1. Load course outline PDF (`data/waterloo_courses/STAT331_Outline.pdf`) with `PDFMinerLoader`.
-2. Split into overlapping chunks (size=1000, overlap=300).
-3. Embed chunks using OpenAI `text-embedding-3-large`.
-4. Store vectors in in‑memory FAISS.
-5. User enters a question (k=3 retrieval).
-6. Build a context‑only prompt.
-7. Get deterministic answer from `gpt-4o-mini` (temperature=0).
-8. Print answer plus raw context.
+OutlineQuery is a simple web application built with Streamlit that allows users to upload a University of Waterloo course outline in HTML format and ask questions about its content.
 
-Main script: `main.py`
+## How it Works
 
-## Quick Start
+The application follows a straightforward process:
 
-```bash
-python -m venv venv
-source venv/bin/activate
-pip install --upgrade pip
-pip install langchain langchain-community langchain-openai faiss-cpu python-dotenv
-python main.py
-```
+1.  **File Upload**: The user uploads a course outline as an HTML file.
+2.  **In-Memory Processing**: The file is read directly into memory, avoiding the need for temporary files on disk.
+3.  **Parsing & Chunking**: The HTML content is parsed to extract meaningful sections, which are then broken down into smaller, manageable chunks for processing.
+4.  **Question Answering**: The user submits a question through a form. This query is used along with the document chunks to find the most relevant answer.
+5.  **Display Answer**: The generated answer is displayed to the user.
 
-Sample question:  
-What are the grading components?
-
-## Environment Variables
-
-Create a clean `.env` (no quotes, no spaces around =):
+## Project Structure
 
 ```
-OPENAI_API_KEY=your_openai_key
+.
+├── src
+│   ├── st_dash.py         # Main Streamlit application script
+│   ├── chunking.py        # Handles parsing and chunking of the HTML document
+│   └── qa.py              # Contains the question-answering logic
+└── README.md
 ```
 
-Rotate the currently committed key immediately (it is exposed and should be treated as compromised). Remove any quotes/spaces in the real file.
+## Setup and Usage
 
-## How It Works
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd data_docx
+    ```
 
-1. Loader -> `PDFMinerLoader`
-2. Split -> `CharacterTextSplitter`
-3. Embed -> `OpenAIEmbeddings(model='text-embedding-3-large')`
-4. Index -> `FAISS.from_documents`
-5. Retrieve -> `similarity_search(query, k=3)`
-6. Prompt -> context + question
-7. LLM -> `ChatOpenAI(model='gpt-4o-mini')`
-8. Output -> answer + context dump
+2.  **Install dependencies:**
+    It is recommended to use a virtual environment.
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
+    *(Note: A `requirements.txt` file should be created containing libraries like `streamlit`, etc.)*
 
-## Customization
+3.  **Run the application:**
+    ```bash
+    streamlit run src/st_dash.py
+    ```
 
-- Change PDF: edit `PDF_PATH` in `main.py`
-- Tune chunking: adjust `CHUNK_SIZE`, `CHUNK_OVERLAP`
-- More/less context: change `k`
-- Different models: swap embedding or chat model names
-- Persist index: save/load FAISS instead of rebuilding
-
-## Virtual Environment Note
-
-The current `venv` includes many experimental packages not required for this prototype (installed during trial-and-error). To clean up:
-
-```bash
-pip freeze > full-freeze.txt   # archive bloated state (optional)
-deactivate
-rm -rf venv
-python -m venv venv
-source venv/bin/activate
-pip install langchain langchain-community langchain-openai faiss-cpu python-dotenv
-pip freeze > requirements.txt
-```
-
-Commit `requirements.txt`, never the `venv` directory.
-
-## Planned Improvements
-
-- Make chunks more context-aware as they perform poorly when asked about assessment dates
-- Turn into a function that can take an course outline file as input
-- Deploy so it can be tested by others
-
-## Disclaimer
-
-Prototype / experimental. Verify important answers against the source PDF
+4.  **Use the application:**
+    -   Open your web browser and navigate to the local URL provided by Streamlit.
+    -   Use the file uploader to select your HTML course outline.
+    -   Once the file is uploaded, type your question into the text box and click "Get answer".
