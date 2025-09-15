@@ -2,6 +2,8 @@
 
 OutlineQuery is a simple web application built with Streamlit that allows users to upload a University of Waterloo course outline in HTML format and ask questions about its content.
 
+**Live Demo:** [https://outlinequery.streamlit.app/](https://outlinequery.streamlit.app/)
+
 ## How it Works
 
 The application follows a straightforward process:

@@ -9,7 +9,7 @@ st.title("OutlineQuery: A Waterloo Course Outline Chatbot")
 if "processed_filename" not in st.session_state:
     st.session_state.processed_filename = None
 
-file = st.file_uploader("Upload your course outline", type="html")
+file = st.file_uploader("Upload your course outline as a HTML file", type="html")
 
 if file is not None:
     # Re-create the vectorstore if a new file is uploaded
