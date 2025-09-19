@@ -1,6 +1,6 @@
 # OutlineQuery: A Waterloo Course Outline Chatbot
 
-OutlineQuery is a simple web application built with Streamlit that allows users to upload a University of Waterloo course outline in HTML format and ask questions about its content.
+OutlineQuery is a simple chatbot built with Streamlit & LangChain that allows users to upload a University of Waterloo course outline in HTML format and ask questions about its content.
 
 **Live Demo:** [https://outlinequery.streamlit.app/](https://outlinequery.streamlit.app/)
 
@@ -50,4 +50,5 @@ The application follows a straightforward process:
 4.  **Use the application:**
     -   Open your web browser and navigate to the local URL provided by Streamlit.
     -   Use the file uploader to select your HTML course outline.
+    -   Go the project page on GitHub and find a Waterloo course outline (.html) in /data/waterloo_courses or select your own course outline if you're a Waterloo student
     -   Once the file is uploaded, type your question into the text box and click "Get answer".
